@@ -243,10 +243,12 @@ var MessageParser = function(message)
             if (command == "show")
             {
                 document.getElementById('serialMonitor').style.display = 'flex';
+                Plotter.draw();
             }
             else if (command == "hide")
             {
                 document.getElementById('serialMonitor').style.display = 'none';
+                Plotter.draw();
             }
             else if (command == "toggle")
             {
@@ -254,6 +256,7 @@ var MessageParser = function(message)
                     document.getElementById('serialMonitor').style.display = 'flex';
                 else
                     document.getElementById('serialMonitor').style.display = 'none';
+                Plotter.draw();
             }
             else if (command == "clear")
             {
@@ -371,10 +374,12 @@ var MessageParser = function(message)
             if (command == "show")
             {
                 document.getElementById('serialLogger').style.display = 'flex';
+                Plotter.draw();
             }
             else if (command == "hide")
             {
                 document.getElementById('serialLogger').style.display = 'none';
+                Plotter.draw();
             }
             else if (command == "toggle")
             {
@@ -382,6 +387,7 @@ var MessageParser = function(message)
                     document.getElementById('serialLogger').style.display = 'flex';
                 else
                     document.getElementById('serialLogger').style.display = 'none';
+                Plotter.draw();
             }
             else if (command == "running")
             {
