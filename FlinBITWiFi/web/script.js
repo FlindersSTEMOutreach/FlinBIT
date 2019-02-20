@@ -221,6 +221,26 @@ var Serial = new WebSerial(
 
 /* --- Functions --- */
 
+var StartLogger = function()
+{
+    var filename = document.getElementById('serialLoggerFileName').value;
+    var overwrite = document.getElementById('fileModeOverwrite').checked;
+
+    if (overwrite === true)
+        Serial.println('/logstart '+filename+' overwrite');
+    else
+        Serial.println('/logstart '+filename+' append');
+
+    document.getElementById('serialLoggerStartButton').disabled = true;
+}
+
+var StopLogger = function()
+{
+    Serial.println('/logstop');
+
+    document.getElementById('serialLoggerStopButton').disabled = true;
+}
+
 var MessageParser = function(message)
 {
     var isCommand = false;
@@ -394,12 +414,18 @@ var MessageParser = function(message)
                 console.log("Logger running");
                 document.getElementById('serialLoggerRunning').style.display = 'flex';
                 document.getElementById('serialLoggerNotRunning').style.display = 'none';
+
+                document.getElementById('serialLoggerStartButton').disabled = false;
+                document.getElementById('serialLoggerStopButton').disabled = false;
             }
             else if (command == "notrunning")
             {
                 console.log("Logger not running");
                 document.getElementById('serialLoggerNotRunning').style.display = 'flex';
                 document.getElementById('serialLoggerRunning').style.display = 'none';
+
+                document.getElementById('serialLoggerStartButton').disabled = false;
+                document.getElementById('serialLoggerStopButton').disabled = false;
             }
         }
         else if (command == 'set')

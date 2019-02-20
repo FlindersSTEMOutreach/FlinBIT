@@ -58,10 +58,10 @@
                 <label for="fileModeAppend">Append</label>
                 <input type="radio" name="serialLoggerFileMode" id="fileModeOverwrite" value="overwrite">
                 <label for="fileModeOverwrite">Overwrite</label>
-                <button onclick="Serial.println('/logstart '+document.getElementById('serialLoggerFileName').value+' '+(document.getElementById('fileModeOverwrite').checked ? 'overwrite' : 'append'));">Start Logging</button>
+                <button id="serialLoggerStartButton" onclick="StartLogger();">Start Logging</button>
             </div>
             <div id="serialLoggerRunning" style="display:none;">
-                <button onclick="Serial.println('/logstop');">Stop Logging</button>
+                <button id="serialLoggerStopButton" onclick="StopLogger()">Stop Logging</button>
             </div>
         </div>
     </body>
