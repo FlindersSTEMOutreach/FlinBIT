@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <!--https://stackoverflow.com/questions/4472891/how-can-i-disable-zoom-on-a-mobile-web-page-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <script src="script.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body class="flexColumn">
+        <h1 id="connectionClosed" class="errorMessage">
+            Lost connection to FlinBit. Make sure mobile data is turned off.
+            <button onclick="Serial.reconnect();">Reconnect</button>
+        </h1>
+        <div class="flexRow" style="width:100%;">
+            <h1>FlinBit</h1>
+            <div class="flexRow" style="align-items:center;justify-content:center;width:100%;">
+                <button onclick="MessageParser('/plotter toggle');">Toggle Plotter</button>
+                <button onclick="MessageParser('/monitor toggle');">Toggle Monitor</button>
+                <button onclick="MessageParser('/logger toggle');">Toggle Logger</button>
+            </div>
+        </div>
+
+        <!-- SERIAL PLOTTER -->
+
+        <div id="serialPlotter" class="flexColumn">
+            <canvas id="serialPlotterCanvas" class="boxSizingBorder"></canvas>
+        </div>
+
+        <!-- SERIAL MONITOR -->
+
+        <h1 id="serialMonitorError" class="errorMessage"></h1>
+
+        <div id="serialMonitor" class="flexColumn">
+            <div id="serialMonitorControls" class="flexRow">
+                <div style="align-self:center;">
+                    <input id="serialMonitorAutoScroll" type="checkbox" class="check" checked>
+                    <label for="serialMonitorAutoScroll">Autoscroll</label>
+                </div>
+                <div style="flex-grow:999;"></div>
+                <button onclick="MessageParser('/monitor clear');">Clear Monitor</button>
+            </div>
+            <textarea readonly=true id="serialInput" class="boxSizingBorder"></textarea>
+            <div id="serialSendArea" class="flexRow">
+                <!--https://stackoverflow.com/questions/6014702/how-do-i-detect-shiftenter-and-generate-a-new-line-in-textarea-->
+                <textarea rows=1 id="serialOutput" class="boxSizingBorder" placeholder="Serial Message" onkeypress="if(event&&event.keyCode===13&&!event.shiftKey){SendMessageFromTextArea('serialOutput');return false;}else return true;"></textarea>
+                <button onclick="SendMessageFromTextArea('serialOutput');">Send</button>
+            </div>
+        </div>
+
+        <!-- SERIAL LOGGER -->
+
+        <h1 id="serialLoggerError" class="errorMessage"></h1>
+
+        <div id="serialLogger" class="flexColumn">
+            <div id="serialLoggerNotRunning" class="flexRow">
+                <textarea rows=1 id="serialLoggerFileName" class="boxSizingBorder" placeholder="Log Filename"></textarea>
+                <input type="radio" name="serialLoggerFileMode" id="fileModeAppend" value="append" checked>
+                <label for="fileModeAppend">Append</label>
+                <input type="radio" name="serialLoggerFileMode" id="fileModeOverwrite" value="overwrite">
+                <label for="fileModeOverwrite">Overwrite</label>
+                <button onclick="Serial.println('/logstart '+document.getElementById('serialLoggerFileName').value+' '+(document.getElementById('fileModeOverwrite').checked ? 'overwrite' : 'append'));">Start Logging</button>
+            </div>
+            <div id="serialLoggerRunning" style="display:none;">
+                <button onclick="Serial.println('/logstop');">Stop Logging</button>
+            </div>
+        </div>
+    </body>
+</html>

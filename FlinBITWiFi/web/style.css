@@ -1,0 +1,131 @@
+/* ====== Tags ====== */
+
+body, button, textarea
+{
+    font-family: sans-serif !important;
+    font-size: 18px !important;
+}
+
+body
+{
+    align-items: flex-start;
+    height: 85%;
+    min-height: 200px;
+}
+
+/* ====== Classes ====== */
+
+.flexColumn
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.flexRow
+{
+    display: flex;
+    flex-direction: row;
+}
+
+.errorMessage
+{
+    color: red;
+    background-color: black;
+    display: none;
+}
+
+/* https://stackoverflow.com/questions/271067/how-can-i-make-a-textarea-100-width-without-overflowing-when-padding-is-present */
+.boxSizingBorder
+{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/* ====== IDs ====== */
+
+/* --- Serial Monitor --- */
+
+#serialMonitor
+{
+    align-items: flex-start;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 40px;
+
+    width: 100%;
+    min-width: 200px;
+    height: 100%;
+    min-height: 200px;
+}
+
+#serialMonitorControls
+{
+    width: 100%;
+    min-width: 200px;
+}
+
+#serialInput
+{
+    width: 100%;
+    height: 100%;
+
+}
+
+#serialSendArea
+{
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 40px;
+    width: 100%;
+}
+
+#serialOutput
+{
+    flex-grow: 0;
+    width: 100%;
+}
+
+/* --- Serial Plotter --- */
+
+#serialPlotter
+{
+    align-items: flex-start;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 40px;
+
+    width: 100%;
+    min-width: 200px;
+    height: 100%;
+    min-height: 200px;
+}
+
+#serialPlotterCanvas
+{
+    display: flex;
+
+    border: 1px solid black;
+
+    width: 100%;
+    height: 100%;
+}
+
+/* --- Serial Logger --- */
+
+#serialLogger
+{
+    align-items: flex-start;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 40px;
+
+    width: 100%;
+    min-width: 200px;
+    height: auto;
+}
+
+#serialLoggerNotRunning
+{
+    align-items: center;
+}
