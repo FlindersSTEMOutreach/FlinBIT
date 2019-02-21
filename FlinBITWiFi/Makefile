@@ -1,7 +1,5 @@
 ROOTDIR:=$(strip $(shell dirname $(lastword $(MAKEFILE_LIST))))
 
-$(info $(ROOTDIR))
-
 WEBDIR = $(ROOTDIR)/web
 DATADIR = $(ROOTDIR)/data
 FOLDERS = $(WEBDIR) $(DATADIR) $(DATADIR)/captive
