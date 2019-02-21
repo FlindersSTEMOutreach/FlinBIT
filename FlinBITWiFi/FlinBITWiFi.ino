@@ -118,8 +118,9 @@ void setup()
                         if (command == "/logstart")
                         {
                             wasLogger = true;
-                            ServerStartLogging(commands.next(),
-                                commands.nextLower() == "overwrite");
+                            bool overwrite = commands.nextLower() == "overwrite";
+                            String &&fname = commands.next();
+                            ServerStartLogging(fname, overwrite);
                             boardcastLogging();
                         }
                         else if (command == "/logstop")

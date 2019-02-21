@@ -227,9 +227,9 @@ var StartLogger = function()
     var overwrite = document.getElementById('fileModeOverwrite').checked;
 
     if (overwrite === true)
-        Serial.println('/logstart '+filename+' overwrite');
+        Serial.println('/logstart overwrite '+filename);
     else
-        Serial.println('/logstart '+filename+' append');
+        Serial.println('/logstart append '+filename);
 
     document.getElementById('serialLoggerStartButton').disabled = true;
 }
