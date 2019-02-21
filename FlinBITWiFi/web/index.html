@@ -7,16 +7,17 @@
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body class="flexColumn">
-        <h1 id="connectionClosed" class="errorMessage">
+        <h1 id="connectionClosed" class="errorMessage flexRow flexWrap">
             Lost connection to FlinBit. Make sure mobile data is turned off.
             <button onclick="Serial.reconnect();">Reconnect</button>
         </h1>
-        <div class="flexRow" style="width:100%;">
+        <div class="flexRow flexWrap" style="justify-content:space-between;width:100%;">
             <h1>FlinBit</h1>
-            <div class="flexRow" style="align-items:center;justify-content:center;width:100%;">
+            <div class="flexRow flexWrap" style="align-items:center;justify-content:center;">
                 <button onclick="MessageParser('/plotter toggle');">Toggle Plotter</button>
                 <button onclick="MessageParser('/monitor toggle');">Toggle Monitor</button>
                 <button onclick="MessageParser('/logger toggle');">Toggle Logger</button>
+                <button onclick="location.href='/logs/';">View Logs</button>
             </div>
         </div>
 
@@ -31,8 +32,8 @@
         <h1 id="serialMonitorError" class="errorMessage"></h1>
 
         <div id="serialMonitor" class="flexColumn">
-            <div id="serialMonitorControls" class="flexRow">
-                <div style="align-self:center;">
+            <div id="serialMonitorControls" class="flexRow flexWrap">
+                <div class="flexNoWrap" style="align-self:center;">
                     <input id="serialMonitorAutoScroll" type="checkbox" class="check" checked>
                     <label for="serialMonitorAutoScroll">Autoscroll</label>
                 </div>
@@ -40,7 +41,7 @@
                 <button onclick="MessageParser('/monitor clear');">Clear Monitor</button>
             </div>
             <textarea readonly=true id="serialInput" class="boxSizingBorder"></textarea>
-            <div id="serialSendArea" class="flexRow">
+            <div id="serialSendArea" class="flexRow flexWrap">
                 <!--https://stackoverflow.com/questions/6014702/how-do-i-detect-shiftenter-and-generate-a-new-line-in-textarea-->
                 <textarea rows=1 id="serialOutput" class="boxSizingBorder" placeholder="Serial Message" onkeypress="if(event&&event.keyCode===13&&!event.shiftKey){SendMessageFromTextArea('serialOutput');return false;}else return true;"></textarea>
                 <button onclick="SendMessageFromTextArea('serialOutput');">Send</button>
@@ -52,12 +53,16 @@
         <h1 id="serialLoggerError" class="errorMessage"></h1>
 
         <div id="serialLogger" class="flexColumn">
-            <div id="serialLoggerNotRunning" class="flexRow">
+            <div id="serialLoggerNotRunning" class="flexRow flexWrap">
                 <textarea rows=1 id="serialLoggerFileName" class="boxSizingBorder" placeholder="Log Filename"></textarea>
-                <input type="radio" name="serialLoggerFileMode" id="fileModeAppend" value="append" checked>
-                <label for="fileModeAppend">Append</label>
-                <input type="radio" name="serialLoggerFileMode" id="fileModeOverwrite" value="overwrite">
-                <label for="fileModeOverwrite">Overwrite</label>
+                <div class="flexNoWrap">
+                    <input type="radio" name="serialLoggerFileMode" id="fileModeAppend" value="append" checked>
+                    <label for="fileModeAppend">Append</label>
+                </div>
+                <div class="flexNoWrap">
+                    <input type="radio" name="serialLoggerFileMode" id="fileModeOverwrite" value="overwrite">
+                    <label for="fileModeOverwrite">Overwrite</label>
+                </div>
                 <button id="serialLoggerStartButton" onclick="StartLogger();">Start Logging</button>
             </div>
             <div id="serialLoggerRunning" style="display:none;">

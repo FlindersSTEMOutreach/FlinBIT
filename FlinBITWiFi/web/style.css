@@ -13,6 +13,11 @@ body
     min-height: 200px;
 }
 
+h1, h2, h3, h4
+{
+    margin: 0 0 0 0;
+}
+
 /* ====== Classes ====== */
 
 .flexColumn
@@ -25,6 +30,20 @@ body
 {
     display: flex;
     flex-direction: row;
+}
+
+.flexWrap
+{
+    display: -webkit-flex; /* Safari */
+    -webkit-flex-wrap: wrap; /* Safari 6.1+ */
+    flex-wrap: wrap;
+}
+
+.flexNoWrap
+{
+    display: -webkit-flex; /* Safari */
+    -webkit-flex-wrap: nowrap; /* Safari 6.1+ */
+    flex-wrap: nowrap;
 }
 
 .errorMessage
@@ -82,8 +101,9 @@ body
 
 #serialOutput
 {
-    flex-grow: 0;
-    width: 100%;
+    flex-grow: 1;
+    min-width: 100px;
+    width: 0;
 }
 
 /* --- Serial Plotter --- */
@@ -127,5 +147,14 @@ body
 
 #serialLoggerNotRunning
 {
+    width: 100%;
+    height: auto;
     align-items: center;
+}
+
+#serialLoggerFileName
+{
+    flex-grow: 1;
+    min-width: 100px;
+    width: 0;
 }
