@@ -8,7 +8,7 @@ bool SerialInputComplete = false;
 // WiFi
 
 const char AP_SSID[] = "FlinBit";
-const char AP_Password[] = "helloworld";
+const char AP_Password[] = "123456789";
 int AP_Channel = random(0, 13) + 1;
 
 const IPAddress AP_IP(192,168,1,1);
@@ -34,6 +34,8 @@ WebSocketsServer Socket(SocketPort);
 
 File LogFile;
 const String LogDir = "/logs/";
+
+// #define DEBUG
 
 void setup()
 {
@@ -69,7 +71,7 @@ void setup()
     //
     // Set up WebServer
     //
-    Server.on("/", &ServerHandleRequest);
+    // Server.on("/", &ServerHandleRequest);
     Server.onNotFound(&ServerHandleRequest);
     Server.begin();
 
@@ -134,6 +136,16 @@ void setup()
                             wasLogger = true;
                             boardcastLogging();
                         }
+                        else if (command == "/logclear")
+                        {
+                            Dir dir = SPIFFS.openDir(LogDir);
+
+                            while (dir.next())
+                            {
+                                SPIFFS.remove(dir.fileName());
+                                dir = SPIFFS.openDir(LogDir);
+                            }
+                        }
                     }
 
                     if (!wasLogger)
@@ -150,7 +162,7 @@ void setup()
                                 Socket.broadcastTXT("> Failed to save\n");
                             #ifdef DEBUG
                             else
-                                Socket.broadcastTXT("> Saved");
+                                Socket.broadcastTXT("> Saved\n");
                             #endif
                         }
                     }
@@ -219,17 +231,21 @@ void ServerStopLogging()
 
 void ServerHandleRequest()
 {
-    ServerSendFile(Server.uri());
+    String &&uri = Server.uri();
+    uri = uri.endsWith("/") ? uri + "index.html" : uri;
+
+    if (!ServerSendFile(Server, uri))
+    {
+        ServerSendDirectory(Server, uri);
+    }
 }
 
-void ServerSendFile(const String &path)
+bool ServerSendFile(ESP8266WebServer &server, const String &path)
 {
-    String filePath = path.endsWith("/") ? path + "index.html" : path;
-
     String dataType = F("text/plain");
-    String lowerPath = filePath.substring(filePath.length() - 5, filePath.length());
+    String lowerPath = path.substring(path.length() - 5, path.length());
     lowerPath.toLowerCase();
-    if      (lowerPath.endsWith(".src"))    lowerPath = lowerPath.substring(0, filePath.lastIndexOf("."));
+    if      (lowerPath.endsWith(".src"))    lowerPath = lowerPath.substring(0, path.lastIndexOf("."));
     else if (lowerPath.endsWith(".gz"))     dataType = F("application/x-gzip");
     else if (lowerPath.endsWith(".html"))   dataType = F("text/html");
     else if (lowerPath.endsWith(".htm"))    dataType = F("text/html");
@@ -247,7 +263,7 @@ void ServerSendFile(const String &path)
     else if (lowerPath.endsWith(".pdf"))    dataType = F("application/x-pdf");
     else if (lowerPath.endsWith(".zip"))    dataType = F("application/x-zip");
 
-    String pathWithGz = filePath + ".gz";
+    String pathWithGz = path + ".gz";
 
     File file;
 
@@ -255,44 +271,53 @@ void ServerSendFile(const String &path)
     {
         file = SPIFFS.open(pathWithGz, "r");
     }
-    else if (SPIFFS.exists(filePath))
+    else if (SPIFFS.exists(path))
     {
-        file = SPIFFS.open(filePath, "r");
+        file = SPIFFS.open(path, "r");
     }
     else
     {
-        ServerSendDirectory(filePath);
-        return;
+        return false;
     }
 
-    Server.setContentLength(file.size());
-    size_t sent = Server.streamFile(file, dataType);
+    server.setContentLength(file.size());
+    size_t sent = server.streamFile(file, dataType);
     file.close();
+    return true;
 }
 
-void ServerSendDirectory(const String &path)
+void ServerSendDirectory(ESP8266WebServer &server, const String &path)
 {
-    int lastIndex = path.lastIndexOf("/");
-    String &&substr = path.substring(0, lastIndex > 1 ? lastIndex : 1);
+    int lastIndex = path.lastIndexOf("/") + 1;
+    if (lastIndex <= 0)
+        lastIndex = 1;
+    String &&substr = path.substring(0, lastIndex);
 
-    Dir dir = SPIFFS.openDir(substr);
-    if (!dir.next())
+    #ifndef DEBUG
+    if (substr != LogDir)
     {
         String error = "Failed to read file. '";
         error += path + "'\n\n" + substr;
-        Server.send(404, "text/plain", error);
+        server.send(404, "text/plain", error);
     }
+    else
+    #endif
+    {
+        Dir dir = SPIFFS.openDir(substr);
 
-    String doc = R"(<html><head><meta charset="utf-8"></head><body>)";
-    do {
-        String &&fname = dir.fileName();
-        if (fname.endsWith(".gz"))
-            fname = fname.substring(0, fname.length() - 3);
-        doc += String("<a href=\"") + fname + "\">" + fname + "</a><br/>";
-    } while (dir.next());
-    doc += R"(</body></html>)";
+        String doc = R"(<html><head><meta charset="utf-8"></head><body><h1 style="margin:0 0 0 0;">)"
+            +substr+R"(</h1><br/><a href="/"><h2 style="margin:0 0 0 0;">Home</h2></a><br/>)";
+        while (dir.next())
+        {
+            String &&fname = dir.fileName();
+            if (fname.endsWith(".gz"))
+                fname = fname.substring(0, fname.length() - 3);
+            doc += String(R"(<a href=")") + fname + R"(">)" + fname + "</a><br/>";
+        }
+        doc += "</body></html>";
 
-    Server.send(200, "text/html", doc);
+        server.send(200, "text/html", doc);
+    }
 }
 
 bool SerialEvent()
