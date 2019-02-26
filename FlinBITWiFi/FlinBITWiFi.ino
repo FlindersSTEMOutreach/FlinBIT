@@ -8,7 +8,7 @@ bool SerialInputComplete = false;
 // WiFi
 
 const char AP_SSID[] = "FlinBit";
-const char AP_Password[] = "123456789";
+const char AP_Password[] = "12345678";
 int AP_Channel = random(0, 13) + 1;
 
 const IPAddress AP_IP(192,168,1,1);
