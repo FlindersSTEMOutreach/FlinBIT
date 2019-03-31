@@ -33,6 +33,23 @@ Data logger will ignore serial messages beginning with `/`.
 
 Data logger will store all other raw serial data directly into a `.txt` file.
 
+## Data plotting
+
+When you log into your FlinBIT you will have the option to view the incomming data stream in the data plotter.
+
+To hide or show the data plotter, press the `Toggle Plotter` button at the top of the page.
+
+To enable or disable the data plotter, tick or untick the `Plot Data` tick box.
+
+To clear all data from the plotter, press the `Clear Plotter` button.
+
+When using the data plotter, the data must be formatted as a comma separated list (eg `1,2,3,4`).
+
+The plotter will count the number of data points in the first message,
+all following messages should contain the same number of data points.
+
+Pressing `Clear Plotter` will reset the number of data points.
+
 ## Commands
 
 `/set background <JavaScript color>`: changes the background color of the web page (not saved).
@@ -46,6 +63,14 @@ Data logger will store all other raw serial data directly into a `.txt` file.
 `/logstop`: Same as pressing the `Stop Logging` button. Makes the FlinBIT stop logging message to file.
 
 `/logclear`: Clears all log files off the FlinBIT. !!WARNING: THIS CANNOT BE UNDONE!!
+
+`/plotter show`: Show the data plotter.
+
+`/plotter hide`: Hide the data plotter.
+
+`/plotter toggle`: Toggle the data plotter. Same as pressing the `Toggle Plotter` button.
+
+`/plotter clear`: Clear all data from the data plotter.
 
 `/monitor show`: Show the serial monitor.
 
