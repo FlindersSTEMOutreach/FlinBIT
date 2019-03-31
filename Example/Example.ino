@@ -28,7 +28,7 @@ void loop()
     Serial.print(", ");
     Serial.print(accelYValue);
     Serial.print(", ");
-    Serial.print(accelYValue);
+    Serial.print(accelZValue);
     Serial.print(", ");
     Serial.println(lightSensorValue); // last one must be a print*ln*!
 
