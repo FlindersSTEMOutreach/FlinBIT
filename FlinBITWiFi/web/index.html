@@ -3,8 +3,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <!--https://stackoverflow.com/questions/4472891/how-can-i-disable-zoom-on-a-mobile-web-page-->
-        <!-- <script src="dygraph.min.js"></script> -->
-        <!-- <link rel="stylesheet" type="text/css" href="dygraph.css"> -->
+        <script src="dygraph.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="dygraph.css">
         <script src="script.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
@@ -16,7 +16,7 @@
         <div class="flexRow flexWrap" style="justify-content:space-between;width:100%;">
             <h1>FlinBIT</h1>
             <div class="flexRow flexWrap" style="align-items:center;justify-content:center;">
-                <!-- <button onclick="MessageParser('/plotter toggle');">Toggle Plotter</button> -->
+                <button onclick="MessageParser('/plotter toggle');">Toggle Plotter</button>
                 <button onclick="MessageParser('/monitor toggle');">Toggle Monitor</button>
                 <button onclick="MessageParser('/logger toggle');">Toggle Logger</button>
                 <button onclick="location.href='/logs/';">View Logs</button>
@@ -25,7 +25,7 @@
 
         <!-- SERIAL PLOTTER -->
 
-        <!-- <div id="serialPlotter" class="flexColumn">
+        <div id="serialPlotter" class="flexColumn">
             <div id="serialPlotterControls" class="flexRow flexWrap">
                 <div class="flexNoWrap" style="align-self:center;">
                     <input id="serialPlotterEnabled" type="checkbox" class="check">
@@ -35,7 +35,7 @@
                 <button onclick="MessageParser('/plotter clear');">Clear Plotter</button>
             </div>
             <div id="serialPlotterGraph"></div>
-        </div> -->
+        </div>
 
         <!-- SERIAL MONITOR -->
 

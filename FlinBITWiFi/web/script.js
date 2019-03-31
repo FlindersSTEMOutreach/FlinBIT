@@ -83,18 +83,18 @@ WebSerial.prototype.println = function(message)
 /* --- Global Objects --- */
 
 var Plotter;
-var PlotterIndex = 0;
-var PlotterData = ""; //"1,10,20\n2,20,40\n3,30,15\n4,5,12\n5,33,23\n";
+var PlotterIndex = -1;
+var PlotterData = "";
 
-// var PlotterResize = function()
-// {
-//     if (document.getElementById('serialPlotter').style.display != 'none') Plotter.resize();
-// }
+var PlotterResize = function()
+{
+    if (document.getElementById('serialPlotter').style.display != 'none') Plotter.resize();
+}
 
-// var PlotterRefresh = function()
-// {
-//     Plotter.updateOptions({'file':PlotterData});
-// }
+var PlotterRefresh = function()
+{
+    Plotter.updateOptions({'file':PlotterData});
+}
 
 var Serial = new WebSerial(
     /* addresss */
@@ -186,45 +186,45 @@ var MessageParser = function(message)
                 }
             }
         }
-        // else if (command == 'plotter')
-        // {
-        //     command = tokens.nextLower();
-        //     if (command == "show")
-        //     {
-        //         document.getElementById('serialPlotter').style.display = 'flex';
-        //         PlotterResize();
-        //     }
-        //     else if (command == "hide")
-        //     {
-        //         document.getElementById('serialPlotter').style.display = 'none';
-        //     }
-        //     else if (command == "toggle")
-        //     {
-        //         if (document.getElementById('serialPlotter').style.display == 'none')
-        //             document.getElementById('serialPlotter').style.display = 'flex';
-        //         else
-        //             document.getElementById('serialPlotter').style.display = 'none';
-        //         PlotterResize();
-        //     }
-        //     else if (command == "clear")
-        //     {
-        //         PlotterIndex = 0;
-        //         PlotterData = "";
-        //         PlotterRefresh();
-        //     }
-        // }
+        else if (command == 'plotter')
+        {
+            command = tokens.nextLower();
+            if (command == "show")
+            {
+                document.getElementById('serialPlotter').style.display = 'flex';
+                PlotterResize();
+            }
+            else if (command == "hide")
+            {
+                document.getElementById('serialPlotter').style.display = 'none';
+            }
+            else if (command == "toggle")
+            {
+                if (document.getElementById('serialPlotter').style.display == 'none')
+                    document.getElementById('serialPlotter').style.display = 'flex';
+                else
+                    document.getElementById('serialPlotter').style.display = 'none';
+                PlotterResize();
+            }
+            else if (command == "clear")
+            {
+                PlotterIndex = -1;
+                PlotterData = "";
+                PlotterRefresh();
+            }
+        }
         else if (command == 'logger')
         {
             command = tokens.nextLower();
             if (command == "show")
             {
                 document.getElementById('serialLogger').style.display = 'flex';
-                // PlotterResize();
+                PlotterResize();
             }
             else if (command == "hide")
             {
                 document.getElementById('serialLogger').style.display = 'none';
-                // PlotterResize();
+                PlotterResize();
             }
             else if (command == "toggle")
             {
@@ -232,7 +232,7 @@ var MessageParser = function(message)
                     document.getElementById('serialLogger').style.display = 'flex';
                 else
                     document.getElementById('serialLogger').style.display = 'none';
-                // PlotterResize();
+                PlotterResize();
             }
             else if (command == "running")
             {
@@ -273,12 +273,20 @@ var MessageParser = function(message)
         if (document.getElementById('serialMonitorAutoScroll').checked)
             elem.scrollTop = elem.scrollHeight; // "auto"-scroll to the end
 
-        // if (document.getElementById('serialPlotterEnabled').checked)
-        // {
-        //     PlotterData += ""+PlotterIndex+","+message;
-        //     PlotterIndex++;
-        //     PlotterRefresh();
-        // }
+        if (document.getElementById('serialPlotterEnabled').checked)
+        {
+            if (PlotterIndex < 0)
+            {
+                PlotterIndex = 0;
+                var axis = 1;
+                for (var i = 0; i < message.length; ++i) if (message[i] == ',') ++axis;
+                for (var i = 0; i < axis; ++i) PlotterData += ""+i+",";
+                PlotterData += ""+axis+"\n";
+            }
+            PlotterData += ""+PlotterIndex+","+message;
+            PlotterIndex++;
+            PlotterRefresh();
+        }
     }
 }
 
@@ -298,18 +306,14 @@ var SendMessageFromElement = function(id)
 
 var OnLoad = function()
 {
-    // Plotter = new Dygraph(
-    //     document.getElementById('serialPlotterGraph'),
-    //     PlotterData,
-    //     { labels: ["X", "Y", "Z"] }
-    // );
+    Plotter = new Dygraph(document.getElementById('serialPlotterGraph'), PlotterData);
 };
 
 window.addEventListener('load', OnLoad);
 
 var OnResize = function()
 {
-    // PlotterResize();
+    PlotterResize();
 };
 
 window.addEventListener('resize', OnResize);

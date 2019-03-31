@@ -5,8 +5,7 @@ DATADIR = $(ROOTDIR)/data
 FOLDERS = $(WEBDIR) $(DATADIR)
 # FOLDERS = $(WEBDIR) $(DATADIR) $(DATADIR)/captive
 
-FILES = index.html.gz script.js.gz style.css.gz
-# dygraph.css.gz dygraph.min.js.gz
+FILES = index.html.gz script.js.gz style.css.gz dygraph.css.gz dygraph.min.js.gz
 
 .PHONY: SPIFFS
 SPIFFS: $(foreach FILE,$(FILES),$(DATADIR)/$(FILE)) | $(FOLDERS)
