@@ -231,7 +231,7 @@ void ServerStopLogging()
 
 void ServerHandleRequest()
 {
-    String &&uri = Server.uri();
+    String uri = Server.uri();
     uri = uri.endsWith("/") ? uri + "index.html" : uri;
 
     if (!ServerSendFile(Server, uri))

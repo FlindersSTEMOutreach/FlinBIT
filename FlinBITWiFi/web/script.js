@@ -84,7 +84,8 @@ WebSerial.prototype.println = function(message)
 
 var Plotter;
 var PlotterIndex = -1;
-var PlotterData = "";
+var PlotterData = "0,0";
+var PlotterAxis = "";
 
 var PlotterResize = function()
 {
@@ -280,8 +281,15 @@ var MessageParser = function(message)
                 PlotterIndex = 0;
                 var axis = 1;
                 for (var i = 0; i < message.length; ++i) if (message[i] == ',') ++axis;
-                for (var i = 0; i < axis; ++i) PlotterData += ""+i+",";
-                PlotterData += ""+axis+"\n";
+                for (var i = 0; i < axis; ++i) PlotterAxis += ""+i+",";
+                PlotterAxis += ""+axis+"\n";
+                PlotterData = PlotterAxis;
+            }
+            if (PlotterIndex > 100)
+            {
+                PlotterData = PlotterData.substring(PlotterData.indexOf("\n") + 1);
+                PlotterData = PlotterData.substring(PlotterData.indexOf("\n") + 1);
+                PlotterData = PlotterAxis + PlotterData;
             }
             PlotterData += ""+PlotterIndex+","+message;
             PlotterIndex++;
@@ -317,4 +325,3 @@ var OnResize = function()
 };
 
 window.addEventListener('resize', OnResize);
-
