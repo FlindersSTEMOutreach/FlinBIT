@@ -37,7 +37,7 @@ Data logger will store all other raw serial data directly into a `.txt` file.
 
 When you log into your FlinBIT you will have the option to view the incomming data stream in the data plotter.
 
-To hide or show the data plotter, press the `Toggle Plotter` button at the top of the page.
+To hide or show the data plotter, press the `Plotter` button at the top of the page.
 
 To enable or disable the data plotter, tick or untick the `Plot Data` tick box.
 
@@ -68,7 +68,7 @@ Pressing `Clear Plotter` will reset the number of data points.
 
 `/plotter hide`: Hide the data plotter.
 
-`/plotter toggle`: Toggle the data plotter. Same as pressing the `Toggle Plotter` button.
+`/plotter toggle`: Toggle the data plotter. Same as pressing the `Plotter` button.
 
 `/plotter clear`: Clear all data from the data plotter.
 
@@ -76,7 +76,7 @@ Pressing `Clear Plotter` will reset the number of data points.
 
 `/monitor hide`: Hide the serial monitor.
 
-`/monitor toggle`: Toggle the serial monitor. Same as pressing the `Toggle Monitor` button.
+`/monitor toggle`: Toggle the serial monitor. Same as pressing the `Monitor` button.
 
 `/monitor clear`: Clear the serial monitor. Same as pressing the `Clear Monitor` button.
 
@@ -86,7 +86,7 @@ Pressing `Clear Plotter` will reset the number of data points.
 
 `/logger hide`: Show the logger controlls.
 
-`/logger toggle`: Toggle the logger controlls. Same as pressing the `Toggle Logger` button.
+`/logger toggle`: Toggle the logger controlls. Same as pressing the `Logger` button.
 
 `/logger running`: Sent from the FlinBIT to any connected devices to tell them that the FlinBIT is currently logging messages to file.
 
