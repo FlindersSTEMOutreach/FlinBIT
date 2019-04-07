@@ -8,7 +8,11 @@ body, button, textarea
 
 body
 {
-    align-items: flex-start;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+       -moz-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
     height: 85%;
     min-height: 200px;
 }
@@ -27,28 +31,50 @@ hr
 
 .flexColumn
 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+       -moz-box-orient: vertical;
+       -moz-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
 }
 
 .flexRow
 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+       -moz-box-orient: horizontal;
+       -moz-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
 }
 
 .flexWrap
 {
     display: -webkit-flex; /* Safari */
     -webkit-flex-wrap: wrap; /* Safari 6.1+ */
-    flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
 }
 
 .flexNoWrap
 {
     display: -webkit-flex; /* Safari */
     -webkit-flex-wrap: nowrap; /* Safari 6.1+ */
-    flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
 }
 
 .errorMessage
@@ -72,10 +98,22 @@ hr
 
 #serialMonitor
 {
-    align-items: flex-start;
-    flex-grow: 1;
-    flex-shrink: 0;
-    flex-basis: 40px;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+       -moz-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+       -moz-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    -webkit-flex-shrink: 0;
+        -ms-flex-negative: 0;
+            flex-shrink: 0;
+    -webkit-flex-basis: 40px;
+        -ms-flex-preferred-size: 40px;
+            flex-basis: 40px;
 
     width: 100%;
     min-width: 200px;
@@ -98,15 +136,27 @@ hr
 
 #serialSendArea
 {
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: 40px;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+       -moz-box-flex: 0;
+        -ms-flex-positive: 0;
+            flex-grow: 0;
+    -webkit-flex-shrink: 0;
+        -ms-flex-negative: 0;
+            flex-shrink: 0;
+    -webkit-flex-basis: 40px;
+        -ms-flex-preferred-size: 40px;
+            flex-basis: 40px;
     width: 100%;
 }
 
 #serialOutput
 {
-    flex-grow: 1;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+       -moz-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
     min-width: 100px;
     width: 0;
 }
@@ -115,10 +165,22 @@ hr
 
 #serialPlotter
 {
-    align-items: flex-start;
-    flex-grow: 1;
-    flex-shrink: 0;
-    flex-basis: 40px;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+       -moz-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+       -moz-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    -webkit-flex-shrink: 0;
+        -ms-flex-negative: 0;
+            flex-shrink: 0;
+    -webkit-flex-basis: 40px;
+        -ms-flex-preferred-size: 40px;
+            flex-basis: 40px;
 
     width: 100%;
     min-width: 200px;
@@ -149,6 +211,10 @@ hr
 
 #serialPlotterCanvas
 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
     display: flex;
 
     border: 1px solid black;
@@ -161,10 +227,22 @@ hr
 
 #serialLogger
 {
-    align-items: flex-start;
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: 40px;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+       -moz-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+       -moz-box-flex: 0;
+        -ms-flex-positive: 0;
+            flex-grow: 0;
+    -webkit-flex-shrink: 0;
+        -ms-flex-negative: 0;
+            flex-shrink: 0;
+    -webkit-flex-basis: 40px;
+        -ms-flex-preferred-size: 40px;
+            flex-basis: 40px;
 
     width: 100%;
     min-width: 200px;
@@ -175,12 +253,20 @@ hr
 {
     width: 100%;
     height: auto;
-    align-items: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+       -moz-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 #serialLoggerFileName
 {
-    flex-grow: 1;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+       -moz-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
     min-width: 100px;
     width: 0;
 }
