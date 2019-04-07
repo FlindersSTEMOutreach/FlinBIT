@@ -129,8 +129,17 @@ h1, h2, h3, h4
 
 #serialPlotterGraph
 {
+    width: 100%;
+    min-width: 200px;
+    height: 100%;
+    overflow: hidden;
+}
+
+#serialPlotterContainer
+{
     width: 100% !important;
     min-width: 200px;
+    height: 100% !important;
 }
 
 #serialPlotterCanvas

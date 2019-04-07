@@ -103,9 +103,9 @@ var Serial = new WebSerial(
     /* onMessage */
     function(event) { MessageParser(event.data); },
     /* onOpen */
-    function(event) { document.getElementById('connectionClosed').style.display = 'none'; /*PlotterResize();*/ },
+    function(event) { document.getElementById('connectionClosed').style.display = 'none'; PlotterResize(); },
     /* onClose */
-    function(event) { document.getElementById('connectionClosed').style.display = 'flex'; /*PlotterResize();*/ },
+    function(event) { document.getElementById('connectionClosed').style.display = 'flex'; PlotterResize(); },
     /* onError */
     function(event) {}
 );
@@ -153,12 +153,12 @@ var MessageParser = function(message)
             if (command == "show")
             {
                 document.getElementById('serialMonitor').style.display = 'flex';
-                // PlotterResize();
+                PlotterResize();
             }
             else if (command == "hide")
             {
                 document.getElementById('serialMonitor').style.display = 'none';
-                // PlotterResize();
+                PlotterResize();
             }
             else if (command == "toggle")
             {
@@ -166,7 +166,7 @@ var MessageParser = function(message)
                     document.getElementById('serialMonitor').style.display = 'flex';
                 else
                     document.getElementById('serialMonitor').style.display = 'none';
-                // PlotterResize();
+                PlotterResize();
             }
             else if (command == "clear")
             {
@@ -314,7 +314,7 @@ var SendMessageFromElement = function(id)
 
 var OnLoad = function()
 {
-    Plotter = new Dygraph(document.getElementById('serialPlotterGraph'), PlotterData);
+    Plotter = new Dygraph(document.getElementById('serialPlotterContainer'), PlotterData);
 };
 
 window.addEventListener('load', OnLoad);
