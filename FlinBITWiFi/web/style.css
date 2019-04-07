@@ -18,6 +18,11 @@ h1, h2, h3, h4
     margin: 0 0 0 0;
 }
 
+hr
+{
+    width: 100%;
+}
+
 /* ====== Classes ====== */
 
 .flexColumn
@@ -115,7 +120,7 @@ h1, h2, h3, h4
     flex-shrink: 0;
     flex-basis: 40px;
 
-    width: 85%;
+    width: 100%;
     min-width: 200px;
     height: 100%;
     min-height: 200px;
@@ -129,7 +134,7 @@ h1, h2, h3, h4
 
 #serialPlotterGraph
 {
-    width: 100%;
+    width: 85%;
     min-width: 200px;
     height: 100%;
     overflow: hidden;
