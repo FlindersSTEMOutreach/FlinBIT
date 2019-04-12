@@ -271,6 +271,18 @@ var MessageParser = function(message)
         // not a command
         var elem = document.getElementById("serialInput");
         elem.value += message;
+        var maxMonitorLines = document.getElementById("serialMonitorMax").value;
+        var curMonitorLines = 0;
+        for (var i = elem.value.length; i --> 0;)
+        {
+            if (elem.value[i] == '\n')
+                ++curMonitorLines;
+            if (curMonitorLines > maxMonitorLines)
+            {
+                elem.value = elem.value.substring(i + 1);
+                break;
+            }
+        }
         if (document.getElementById('serialMonitorAutoScroll').checked)
             elem.scrollTop = elem.scrollHeight; // "auto"-scroll to the end
 
@@ -285,11 +297,20 @@ var MessageParser = function(message)
                 PlotterAxis += ""+axis+"\n";
                 PlotterData = PlotterAxis;
             }
-            if (PlotterIndex > 100)
+            else
             {
-                PlotterData = PlotterData.substring(PlotterData.indexOf("\n") + 1);
-                PlotterData = PlotterData.substring(PlotterData.indexOf("\n") + 1);
-                PlotterData = PlotterAxis + PlotterData;
+                var maxPlotterDatas = document.getElementById("serialPlotterMax").value;
+                var curPlotterDatas = 0;
+                for (var i = PlotterData.length; i --> 0;)
+                {
+                    if (PlotterData[i] == '\n')
+                        ++curPlotterDatas;
+                    if (curPlotterDatas >= maxPlotterDatas)
+                    {
+                        PlotterData = PlotterAxis + PlotterData.substring(i + 1);
+                        break;
+                    }
+                }
             }
             PlotterData += ""+PlotterIndex+","+message;
             PlotterIndex++;

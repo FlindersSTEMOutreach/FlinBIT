@@ -33,6 +33,10 @@
                     <label for="serialPlotterEnabled">Plot Data</label>
                 </div>
                 <div style="flex-grow:999;"></div>
+                <div class="flexNoWrap flexCenter">
+                    <label for="serialPlotterMax">Max Points: </label>
+                    <input id="serialPlotterMax" type="number" min="1" max="1000" value="100">
+                </div>
                 <button onclick="MessageParser('/plotter clear');">Clear Plotter</button>
             </div>
             <div id="serialPlotterGraph">
@@ -52,6 +56,10 @@
                     <label for="serialMonitorAutoScroll">Autoscroll</label>
                 </div>
                 <div style="flex-grow:999;"></div>
+                <div class="flexNoWrap flexCenter">
+                    <label for="serialMonitorMax">Max Messages: </label>
+                    <input id="serialMonitorMax" type="number" min="1" max="1000" value="10">
+                </div>
                 <button onclick="MessageParser('/monitor clear');">Clear Monitor</button>
             </div>
             <textarea readonly=true id="serialInput" class="boxSizingBorder"></textarea>
