@@ -16,9 +16,9 @@ void setup()
 void loop()
 {
     // Read accelerometer values
-    int accelXValue = analogRead(ACCEL_X_PIN);
-    int accelYValue = analogRead(ACCEL_Y_PIN);
-    int accelZValue = analogRead(ACCEL_Z_PIN);
+    int accelXValue = analogRead(ACCEL_X_PIN) - 512;
+    int accelYValue = analogRead(ACCEL_Y_PIN) - 512;
+    int accelZValue = analogRead(ACCEL_Z_PIN) - 512;
 
     // Read light sensor value
     int lightSensorValue = analogRead(LIGHT_LEVEL_PIN);
