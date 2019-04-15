@@ -94,17 +94,46 @@ Pressing `Clear Plotter` will reset the number of data points.
 
 `/islogging`: Ask the FlinBIT if it currently logging message to file. FlinBIT should reply with either `/logger running` or `/logger notrunning`.
 
-# FlinBIT Example
+# Programming
 
+The FlinBIT has been tested to work with Arduino 1.8.8, with version 2.5.0 of the ESP8266 board libraries.
 
+When programming the FlinBIT shield ensure that the settings are as follows:
 
-# FlinBITWiFi
+```
+Board: LOLIN(WEMOS) D1 R2 & mini
+Upload Speed: 921600
+CPU Frequency: 80 MHz
+Flash Size: 4M (3M SPIFFS)
+Debug Port: Disabled
+Debug Level: None
+lwIP Variant: v2 Lower Memory
+VTables: Flash
+Exceptions: Disabled
+Erase Flash: Only Sketch
+Programmer: AVRISP mkII
+```
+
+When programming the Arduino Nano included with the FlinBIT ensure that the settings are as follows:
+
+```
+Board: Arduino Nano
+Processor: ATmega328P (Old Bootloader)
+Programmer: AVRISP mkII
+```
+
+## Example
+
+The included Example project for the FlinBIT's Arduino Nano sends out accelerometer and light values to the serial port,
+which can be easily read on the FlinBIT web interface
+
+## FlinBITWiFi
 
 FlinBITWiFi is the firmware for the FlinBIT's ESP8266.
 
 The [SPIFFS upload tool](https://github.com/esp8266/arduino-esp8266fs-plugin) is require to upload the website to the ESP8266.
 
-## Building
+### Rebuilding the web interface
 
 Rebuilding the SPIFFS data requires GNU Make and gzip (available on most Linux distros).
 
